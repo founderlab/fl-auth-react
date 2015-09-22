@@ -1,5 +1,5 @@
 import path from 'path'
-import User from '../models/user'
+import core from './core'
 
 export default (req, res, next) => {
   console.log('login check: ', req.user)
