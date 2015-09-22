@@ -9,10 +9,7 @@ const defaults = {
 export default function configurePassport(options={}) {
   _.defaults(options, defaults)
   const User = options.User
-  const app = options.app
-
-  app.use(passport.initialize())
-  app.use(passport.session())
+  if (!User) throw new Error(`Missing User from configurePassport, got ${User}`)
 
   // serialize users to their id
   passport.serializeUser((user, callback) => {

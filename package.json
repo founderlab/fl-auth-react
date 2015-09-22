@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "fl-auth-server",
   "main": "index.js",
-  "author": "Gwilym Humphreys (https://github.com/gwilymhumphreys)",
+  "author": {
+    "name": "Gwilym Humphreys",
+    "url": "https://github.com/gwilymhumphreys"
+  },
   "license": "None",
   "scripts": {
     "test": ""
@@ -16,6 +19,12 @@
     "lodash": "*",
     "queue-async": "^1.0.7"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {},
+  "gitHead": "ab4a34ed367845519c144bb9440e8eb6289ad49b",
+  "readme": "# Auth library for FounderLab apps. Use it with fl-auth-client\n\nUsage:\n\n  import auth from 'fl-auth'\n\n  import User from './models/user' // Provide a User BackboneORM model to use\n  app = express() // Provide your express app\n\n  fl_auth.configure({app, model: User})\n",
+  "readmeFilename": "readme.md",
+  "_id": "fl-auth-server@0.0.1",
+  "_shasum": "94d9d1f44bcb7a9918d32a39b9c14a4db23505d5",
+  "_from": "git+https://founderlab-dummy:5901023845@bitbucket.org/founderlab/fl-auth-server.git",
+  "_resolved": "git+https://founderlab-dummy:5901023845@bitbucket.org/founderlab/fl-auth-server.git#ab4a34ed367845519c144bb9440e8eb6289ad49b"
 }

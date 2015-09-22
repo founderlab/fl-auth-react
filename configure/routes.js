@@ -3,7 +3,7 @@ import passport from 'passport'
 
 const defaults = {}
 
-export default function configureRoutes(app, options) {
+export default function configureRoutes(options={}) {
   _.defaults(options, defaults)
   const app = options.app
   if (!app) throw new Error(`Missing app from configureRoutes, got ${app}`)
