@@ -40,8 +40,8 @@ export default function configurePassport(options={}) {
         console.log('signup error: user exists', email)
         return callback(null, false, 'user exists')
       }
-      user = new User({email, password: User.createHash(password)})
-      user.save(err => {
+      const new_user = new User({email, password: User.createHash(password)})
+      new_user.save(err => {
         if (err) return callback(err)
         callback(null, user)
       })

@@ -30,8 +30,8 @@ export default function configureRoutes(options={}) {
           success: true,
         })
       })
-
     })(req, res)
+
   })
 
   app.post('/signup', passport.authenticate('signup', {
