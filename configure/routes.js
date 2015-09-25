@@ -1,20 +1,24 @@
 import _ from 'lodash'
 import passport from 'passport'
 
-const defaults = {}
+const defaults = {
+  paths: {
+    login: '/login',
+    register: '/register',
+    success: '/',
+  },
+}
 
 export default function configureRoutes(options={}) {
   _.defaults(options, defaults)
   const app = options.app
-  if (!app) throw new Error(`Missing app from configureRoutes, got ${app}`)
+  if (!app) throw new Error(`Missing app from configureRoutes, got ${options}`)
 
-  // app.post '/login', passport.authenticate('login', {
-  //   successRedirect: '/'
-  //   failureRedirect: '/login'
-  // })
-  app.post('/login', (req, res) => {
-    console.log(req.xhr)
-
+  // app.post(options.paths.login, passport.authenticate('login', {
+  //   successRedirect: options.paths.success,
+  //   failureRedirect: options.paths.login,
+  // }))
+  app.post(options.paths.login, (req, res, next) => {
     passport.authenticate('login', (err, user, msg) => {
       if (err || !user) return res.json({error: msg})
 
@@ -24,19 +28,26 @@ export default function configureRoutes(options={}) {
         return res.json({
           user: {
             id: req.user.id,
-            username: req.user.get('username'),
             email: req.user.get('email'),
           },
           success: true,
         })
       })
-    })(req, res)
-
+    })(req, res, next)
   })
 
-  app.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  }))
+  app.post(options.paths.register, (req, res, next) => {
+    passport.authenticate('register', (err, user, msg) => {
+      if (err || !user) return res.json({error: msg})
+
+      return res.json({
+        user: {
+          id: user.id,
+          email: user.get('email'),
+        },
+        success: true,
+      })
+    })(req, res, next)
+  })
 
 }

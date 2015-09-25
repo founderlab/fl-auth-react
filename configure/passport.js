@@ -19,7 +19,7 @@ export default function configurePassport(options={}) {
   passport.deserializeUser((id, callback) => User.findOne(id, callback))
 
   // passport functions
-  passport.use('login', new LocalStrategy({passReqToCallback: true}, (req, email, password, callback) =>
+  passport.use('login', new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) =>
     User.findOne({email}, (err, user) => {
       if (err) return callback(err)
       if (!user) {
@@ -33,17 +33,17 @@ export default function configurePassport(options={}) {
     })
   ))
 
-  passport.use('signup', new LocalStrategy({passReqToCallback: true}, (req, email, password, callback) => {
+  passport.use('register', new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) => {
     User.findOne({email}, (err, user) => {
       if (err) return callback(err)
       if (user) {
-        console.log('signup error: user exists', email)
+        console.log('register error: user exists', email)
         return callback(null, false, 'user exists')
       }
       const new_user = new User({email, password: User.createHash(password)})
       new_user.save(err => {
         if (err) return callback(err)
-        callback(null, user)
+        callback(null, new_user)
       })
     })
   }))
