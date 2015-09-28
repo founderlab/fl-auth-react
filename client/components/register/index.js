@@ -1,6 +1,5 @@
 import React from 'react'
 import {Button, Input} from 'react-bootstrap'
-import Auth from '../../index'
 
 export default class Register extends React.Component {
 
@@ -8,6 +7,7 @@ export default class Register extends React.Component {
     loading: React.PropTypes.boolean,
     register: React.PropTypes.function,
     auth: React.PropTypes.object,
+    error: React.PropTypes.string,
   }
 
   constructor(props) {
@@ -17,12 +17,10 @@ export default class Register extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    // Auth.register(this.state.email, this.state.password, (err) => {
-    //   if (err) console.log(err)
-    // })
     this.props.register(this.state.email, this.state.password)
   }
   onNameChange = (e) => {
+    console.log('onNameChange', e, this.state)
     this.state.email = e.target.value
   }
   onPasswordChange = (e) => {
@@ -34,28 +32,30 @@ export default class Register extends React.Component {
   }
 
   render() {
+    const loading = this.props.auth.get('loading')
+    const error = this.props.auth.get('error')
     return (
       <form onSubmit={this.onSubmit}>
 
         <Input
           onChange={this.onNameChange}
           type="text"
-          value={this.state.email}
+          // value={this.state.email}
           placeholder="email"
           label="email"
           bsStyle={this.validationState()} />
         <Input
           onChange={this.onPasswordChange}
           type="text"
-          value={this.state.password}
+          // value={this.state.password}
           placeholder="password"
           label="password"
           bsStyle={this.validationState()} />
 
-        <Button onClick={this.onSubmit} bsStyle="primary" >Register</Button>
+        <Button onClick={this.onSubmit} bsStyle="primary">Register</Button>
 
-        <span>loading: {this.props.loading}</span>
-        <span>it works: {this.props.auth.get('email')}</span>
+        {loading && <p>loading...</p>}
+        {error && <p>Error: {error}</p>}
 
       </form>
     )

@@ -31,7 +31,6 @@ export default function configureRoutes(options={}) {
             id: req.user.id,
             email: req.user.get('email'),
           },
-          success: true,
         })
       })
     })(req, res, next)
@@ -49,7 +48,6 @@ export default function configureRoutes(options={}) {
             id: user.id,
             email: user.get('email'),
           },
-          success: true,
         })
       })
     })(req, res, next)

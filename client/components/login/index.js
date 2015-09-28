@@ -1,5 +1,4 @@
 import React from 'react'
-import Auth from '../../index'
 import LoginView from './view'
 import LoginForm from './form'
 
@@ -9,18 +8,12 @@ export default class Login extends React.Component {
     auth: React.PropTypes.object,
   }
 
-  constructor() {
-    super()
-    this.state = {
-      logged_in: Auth.loggedIn(),
-    }
-  }
-
   render() {
+    const email = this.props.auth.get('email')
     return (
       <div className="login">
 
-        {this.state.logged_in ? (
+        {email ? (
           <LoginView {...this.props} />
         ) : (
           <LoginForm {...this.props} />

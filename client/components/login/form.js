@@ -1,12 +1,11 @@
 import React from 'react'
 import {Button, Input} from 'react-bootstrap'
-import Auth from '../../index'
 
 export default class LoginForm extends React.Component {
 
   static propTypes = {
     loading: React.PropTypes.boolean,
-    submitLogin: React.PropTypes.function,
+    login: React.PropTypes.function,
     auth: React.PropTypes.object,
   }
 
@@ -17,10 +16,7 @@ export default class LoginForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    Auth.login(this.state.email, this.state.password, (err) => {
-      if (err) console.log(err)
-      this.props.submitLogin(this.state.email)
-    })
+    this.props.login(this.state.email, this.state.password)
   }
   onNameChange = (e) => {
     this.state.email = e.target.value
@@ -34,6 +30,8 @@ export default class LoginForm extends React.Component {
   }
 
   render() {
+    const loading = this.props.auth.get('loading')
+    const error = this.props.auth.get('error')
     return (
       <form className="form-inline" onSubmit={this.onSubmit}>
 
@@ -54,8 +52,8 @@ export default class LoginForm extends React.Component {
 
         <Button onClick={this.onSubmit} bsStyle="primary" >Login</Button>
 
-        <span>loading: {this.props.loading}</span>
-        <span>it works: {this.props.auth.get('email')}</span>
+        {loading && <p>loading...</p>}
+        {error && <p>Error: {error}</p>}
 
       </form>
     )
