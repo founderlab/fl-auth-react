@@ -1,10 +1,10 @@
-# Auth library for FounderLab apps. Use it with fl-auth-client
+# Auth pacakge for FounderLab apps
 
-Usage:
+Usage (server):
 
-  import auth from 'fl-auth'
+  import Auth from 'fl-auth/server'
 
-  import User from './models/user' // Provide a User BackboneORM model to use
-  app = express() // Provide your express app
+  import User from './models/user'  // Provide a User (BackboneORM) model to use
+  app = express()                   // Provide your express app
 
-  fl_auth.configure({app, model: User})
+  Auth.configure({app, model: User})
