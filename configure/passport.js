@@ -13,10 +13,11 @@ export default function configurePassport(options={}) {
 
   // serialize users to their id
   passport.serializeUser((user, callback) => {
+    console.log('serializeUser', user)
     if (!user) return callback(new Error('User missing'))
     callback(null, user.id)
   })
-  passport.deserializeUser((id, callback) => User.findOne(id, callback))
+  passport.deserializeUser((id, callback) => {console.log('deserializeUser', id); User.findOne(id, callback)})
 
   // passport functions
   passport.use('login', new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) =>
@@ -43,8 +44,10 @@ export default function configurePassport(options={}) {
       const new_user = new User({email, password: User.createHash(password)})
       new_user.save(err => {
         if (err) return callback(err)
+        console.log('new_user creted', new_user)
         callback(null, new_user)
       })
     })
   }))
+
 }
