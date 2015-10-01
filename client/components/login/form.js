@@ -4,8 +4,7 @@ import {Button, Input} from 'react-bootstrap'
 export default class LoginForm extends React.Component {
 
   static propTypes = {
-    loading: React.PropTypes.boolean,
-    login: React.PropTypes.function,
+    login: React.PropTypes.func,
     auth: React.PropTypes.object,
   }
 
@@ -50,7 +49,7 @@ export default class LoginForm extends React.Component {
           // label="password"
           bsStyle={this.validationState()} />
 
-        <Button onClick={this.onSubmit} bsStyle="primary" >Login</Button>
+        <Button onClick={this.onSubmit} bsStyle="primary">Login</Button>
 
         {loading && <p>loading...</p>}
         {error && <p>Error: {error}</p>}

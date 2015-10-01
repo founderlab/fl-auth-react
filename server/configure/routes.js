@@ -10,21 +10,19 @@ const defaults = {
 }
 
 export default function configureRoutes(options={}) {
-  _.defaults(options, defaults)
+  _.merge(options, defaults)
   const app = options.app
   if (!app) throw new Error(`Missing app from configureRoutes, got ${options}`)
 
-  // app.post(options.paths.login, passport.authenticate('login', {
-  //   successRedirect: options.paths.success,
-  //   failureRedirect: options.paths.login,
-  // }))
+  // login via ajax
   app.post(options.paths.login, (req, res, next) => {
+
     passport.authenticate('login', (err, user, msg) => {
-      console.log('login authenticated', err, user, msg)
-      if (err || !user) return res.json({error: msg})
+      if (err) return res.status(500).json({error: msg})
+      if (!user) return res.status(401).json({error: msg})
 
       req.login(user, {}, err => {
-        if (err) return res.json({error: err})
+        if (err) return res.status(500).json({error: err})
 
         return res.json({
           user: {
@@ -36,13 +34,15 @@ export default function configureRoutes(options={}) {
     })(req, res, next)
   })
 
+  // register via ajax
   app.post(options.paths.register, (req, res, next) => {
+
     passport.authenticate('register', (err, user, msg) => {
-      console.log('register authenticated', err, user, msg)
-      if (err || !user) return res.json({error: msg})
+      if (err) return res.status(500).json({error: msg})
+      if (!user) return res.status(402).json({error: msg})
 
       req.login(user, {}, err => {
-        if (err) return res.json({error: err})
+        if (err) return res.status(500).json({error: err})
         return res.json({
           user: {
             id: user.id,

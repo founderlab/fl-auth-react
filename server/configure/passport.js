@@ -9,15 +9,14 @@ const defaults = {
 export default function configurePassport(options={}) {
   _.defaults(options, defaults)
   const User = options.User
-  if (!User) throw new Error(`Missing User from configurePassport, got ${User}`)
+  if (!User) throw new Error(`Missing User model from configurePassport, got ${options}`)
 
   // serialize users to their id
   passport.serializeUser((user, callback) => {
-    console.log('serializeUser', user)
     if (!user) return callback(new Error('User missing'))
     callback(null, user.id)
   })
-  passport.deserializeUser((id, callback) => {console.log('deserializeUser', id); User.findOne(id, callback)})
+  passport.deserializeUser((id, callback) => {User.findOne(id, callback)})
 
   // passport functions
   passport.use('login', new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) =>

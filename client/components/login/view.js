@@ -4,12 +4,19 @@ export default class LoginView extends React.Component {
 
   static propTypes = {
     auth: React.PropTypes.object,
+    logout: React.PropTypes.func,
+  }
+
+  onLogout = (e) => {
+    e.preventDefault()
+    this.props.logout()
   }
 
   render() {
     return (
       <div id="email">
-        <p>logged in as: {this.props.auth.get('email')}</p>
+        {this.props.auth.get('email')}
+        <button onCLick={this.onLogout}>logout</button>
       </div>
     )
   }

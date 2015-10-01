@@ -1,7 +1,7 @@
 {
   "name": "fl-auth",
   "version": "0.0.1",
-  "description": "fl-auth",
+  "description": "Auth package for FounderLab apps",
   "main": "index.js",
   "author": {
     "name": "Gwilym Humphreys",
@@ -15,7 +15,10 @@
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "lodash": "*",
-    "queue-async": "^1.0.7"
+    "queue-async": "^1.0.7",
+    "backbone": "^1.2.0",
+    "backbone-mongo": "^0.6.10",
+    "bcrypt-nodejs": "0.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",

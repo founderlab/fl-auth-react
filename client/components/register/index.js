@@ -4,8 +4,7 @@ import {Button, Input} from 'react-bootstrap'
 export default class Register extends React.Component {
 
   static propTypes = {
-    loading: React.PropTypes.boolean,
-    register: React.PropTypes.function,
+    register: React.PropTypes.func,
     auth: React.PropTypes.object,
     error: React.PropTypes.string,
   }

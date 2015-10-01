@@ -1,7 +1,7 @@
 import configure from './configure'
-import loggedIn from './middleware/logged_in'
+import ensureLoggedIn from './middleware/ensure_logged_in'
 
 export default {
   configure,
-  loggedIn,
+  ensureLoggedIn,
 }
