@@ -56,6 +56,7 @@ export default class Register extends React.Component {
         {loading && <p>loading...</p>}
         {error && <p>Error: {error}</p>}
 
+        <a href="/auth/facebook">Login with Facebook</a>
       </form>
     )
   }

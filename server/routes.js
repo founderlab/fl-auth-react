@@ -6,6 +6,8 @@ const defaults = {
     login: '/login',
     register: '/register',
     success: '/',
+    facebook_redirect: '/auth/facebook',
+    facebook_callback: '/auth/facebook/callback',
   },
 }
 
@@ -52,5 +54,16 @@ export default function configureRoutes(options={}) {
       })
     })(req, res, next)
   })
+
+  // Redirect the user to Facebook for authentication.  When complete,
+  // Facebook will redirect the user back to the application at
+  //     /auth/facebook/callback
+  app.get(options.paths.facebook_redirect, passport.authenticate('facebook'))
+
+  // Facebook will redirect the user to this URL after approval.  Finish the
+  // authentication process by attempting to obtain an access token.  If
+  // access was granted, the user will be logged in.  Otherwise,
+  // authentication has failed.
+  app.get(options.paths.facebook_callback, passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/login' }))
 
 }
