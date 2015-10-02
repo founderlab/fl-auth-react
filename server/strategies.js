@@ -43,12 +43,9 @@ export default function configureStrategies(options={}) {
     })
   }))
 
-  process.env.FACEBOOK_APP_ID = '899623593454914'
-  process.env.FACEBOOK_APP_SECRET = '456'
-
   passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    clientID: options.facebook.app_id,
+    clientSecret: options.facebook.app_secret,
     callbackURL: 'http://testapp-founderlab.rhcloud.com/auth/facebook/callback',
   },
     (accessToken, refreshToken, profile, callback) => {
