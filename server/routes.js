@@ -22,7 +22,7 @@ export default function configureRoutes(options={}) {
   app.post(options.paths.login, (req, res, next) => {
 
     passport.authenticate('login', (err, user, msg) => {
-      if (err) return res.status(500).json({error: msg})
+      if (err) return res.status(500).json({error: err})
       if (!user) return res.status(401).json({error: msg})
 
       req.login(user, {}, err => {
@@ -42,7 +42,7 @@ export default function configureRoutes(options={}) {
   app.post(options.paths.register, (req, res, next) => {
 
     passport.authenticate('register', (err, user, msg) => {
-      if (err) return res.status(500).json({error: msg})
+      if (err) return res.status(500).json({error: err})
       if (!user) return res.status(402).json({error: msg})
 
       req.login(user, {}, err => {
@@ -64,8 +64,7 @@ export default function configureRoutes(options={}) {
   })
 
   // Redirect the user to Facebook for authentication.  When complete,
-  // Facebook will redirect the user back to the application at
-  //     /auth/facebook/callback
+  // Facebook will redirect the user back to the application at options.paths.facebook_callback
   app.get(options.paths.facebook_redirect, passport.authenticate('facebook'))
 
   // Facebook will redirect the user to this URL after approval.  Finish the

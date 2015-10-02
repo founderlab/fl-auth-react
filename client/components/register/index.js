@@ -19,7 +19,6 @@ export default class Register extends React.Component {
     this.props.register(this.state.email, this.state.password)
   }
   onNameChange = (e) => {
-    console.log('onNameChange', e, this.state)
     this.state.email = e.target.value
   }
   onPasswordChange = (e) => {
