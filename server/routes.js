@@ -4,6 +4,7 @@ import passport from 'passport'
 const defaults = {
   paths: {
     login: '/login',
+    logout: '/logout',
     register: '/register',
     success: '/',
     facebook_redirect: '/auth/facebook',
@@ -12,6 +13,7 @@ const defaults = {
 }
 
 export default function configureRoutes(options={}) {
+
   _.merge(options, defaults)
   const app = options.app
   if (!app) throw new Error(`Missing app from configureRoutes, got ${options}`)
@@ -53,6 +55,12 @@ export default function configureRoutes(options={}) {
         })
       })
     })(req, res, next)
+  })
+
+  // logout
+  app.all('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/')
   })
 
   // Redirect the user to Facebook for authentication.  When complete,
