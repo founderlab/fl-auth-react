@@ -1,21 +1,8 @@
-import _ from 'lodash'
 import passport from 'passport'
 
-const defaults = {
-  paths: {
-    login: '/login',
-    logout: '/logout',
-    register: '/register',
-    success: '/',
-    facebook_redirect: '/auth/facebook',
-    facebook_callback: '/auth/facebook/callback',
-  },
-}
-
 export default function configureRoutes(options={}) {
-  _.merge(options, defaults)
   const app = options.app
-  if (!app) throw new Error(`Missing app from configureRoutes, got ${options}`)
+  if (!app) throw new Error(`Missing app from fl-auth::configureRoutes, got ${options}`)
 
   // login via ajax
   app.post(options.paths.login, (req, res, next) => {
@@ -62,14 +49,16 @@ export default function configureRoutes(options={}) {
     res.redirect('/')
   })
 
-  // Redirect the user to Facebook for authentication.  When complete,
-  // Facebook will redirect the user back to the application at options.paths.facebook_callback
-  app.get(options.paths.facebook_redirect, passport.authenticate('facebook'))
+  if (options.facebook) {
+    // Redirect the user to Facebook for authentication.  When complete,
+    // Facebook will redirect the user back to the application at options.paths.facebook_callback
+    app.get(options.facebook.paths.redirect, passport.authenticate('facebook', {scope: options.facebook.scope}))
 
-  // Facebook will redirect the user to this URL after approval.  Finish the
-  // authentication process by attempting to obtain an access token.  If
-  // access was granted, the user will be logged in.  Otherwise,
-  // authentication has failed.
-  app.get(options.paths.facebook_callback, passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/login' }))
+    // Facebook will redirect the user to this URL after approval.  Finish the
+    // authentication process by attempting to obtain an access token.  If
+    // access was granted, the user will be logged in.  Otherwise,
+    // authentication has failed.
+    app.get(options.facebook.paths.callback, passport.authenticate('facebook', {successRedirect: '/', failureRedirect: options.paths.login}))
+  }
 
 }

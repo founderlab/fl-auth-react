@@ -1,14 +1,8 @@
-import _ from 'lodash'
 import passport from 'passport'
 
-const defaults = {
-  // none yet
-}
-
 export default function configureSerializing(options={}) {
-  _.defaults(options, defaults)
   const User = options.User
-  if (!User) throw new Error(`Missing User model from configureSerializing, got ${options}`)
+  if (!User) throw new Error(`Missing User model from fl-auth::configureSerializing, got ${options}`)
 
   // serialize users to their id
   passport.serializeUser((user, callback) => {

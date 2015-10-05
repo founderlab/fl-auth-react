@@ -1,16 +1,12 @@
-import _ from 'lodash'
+import path from 'path'
 import passport from 'passport'
 import {Strategy as LocalStrategy} from 'passport-local'
 import {Strategy as FacebookStrategy} from 'passport-facebook'
 
-const defaults = {
-  // none yet
-}
 
 export default function configureStrategies(options={}) {
-  _.defaults(options, defaults)
   const User = options.User
-  if (!User) throw new Error(`Missing User model from configurePassport, got ${options}`)
+  if (!User) throw new Error(`Missing User model from fl-auth::configureStrategies, got ${options}`)
 
   // passport functions
   passport.use('login', new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) =>
@@ -30,31 +26,38 @@ export default function configureStrategies(options={}) {
   passport.use('register', new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) => {
     User.findOne({email}, (err, user) => {
       if (err) return callback(err)
+
       if (user) {
         console.log('register error: user exists', email)
         return callback(null, false, 'user exists')
       }
+
       const new_user = new User({email, password: User.createHash(password)})
       new_user.save(err => {
         if (err) return callback(err)
-        console.log('new_user creted', new_user)
         callback(null, new_user)
       })
+
     })
   }))
 
-  passport.use(new FacebookStrategy({
-    clientID: options.facebook.app_id,
-    clientSecret: options.facebook.app_secret,
-    callbackURL: 'http://testapp-founderlab.rhcloud.com/auth/facebook/callback',
-  },
+  if (options.facebook) {
+    passport.use(new FacebookStrategy({
+      clientID: options.facebook.app_id,
+      clientSecret: options.facebook.app_secret,
+      callbackURL: path.join(options.facebook.url, options.facebook.paths.callback),
+      profileFields: options.facebook.profile_fields,
+    },
+
     (accessToken, refreshToken, profile, callback) => {
-      const email = 'facebooktest'
-      User.findOrCreate({email}, (err, user) => {
+      const email = profile.email
+      console.log('profile:', profile)
+      User.findOrCreate({email, facebook_id: profile.id}, (err, user) => {
         if (err) return callback(err)
         callback(null, user)
       })
-    }
-  ))
+
+    }))
+  }
 
 }
