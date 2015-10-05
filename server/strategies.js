@@ -42,10 +42,17 @@ export default function configureStrategies(options={}) {
   }))
 
   if (options.facebook) {
-    passport.use(new FacebookStrategy({
+    console.log('fb options', {
       clientID: options.facebook.app_id,
       clientSecret: options.facebook.app_secret,
       callbackURL: path.join(options.facebook.url, options.facebook.paths.callback),
+      callbackURLplus: options.facebook.url + options.facebook.paths.callback,
+      profileFields: options.facebook.profile_fields,
+    })
+    passport.use(new FacebookStrategy({
+      clientID: options.facebook.app_id,
+      clientSecret: options.facebook.app_secret,
+      callbackURL: options.facebook.url + options.facebook.paths.callback,
       profileFields: options.facebook.profile_fields,
     },
 
