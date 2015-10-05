@@ -17,7 +17,7 @@ const defaults = {
     success: '/',
   },
   facebook: {
-    url: process.env.URL || '',
+    url: process.env.URL,
     paths: {
       redirect: '/auth/facebook',
       callback: '/auth/facebook/callback',
