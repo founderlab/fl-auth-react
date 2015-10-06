@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Queue from 'queue-async'
 import passport from 'passport'
 import {Strategy as LocalStrategy} from 'passport-local'
 import {Strategy as FacebookStrategy} from 'passport-facebook'
@@ -50,11 +51,17 @@ export default function configureStrategies(options={}) {
     },
 
     (accessToken, refreshToken, profile, callback) => {
+      const queue = new Queue(1)
       const email = _.get(profile, 'emails[0].value', '')
+      let user
       console.log('profile:', profile, email)
-      User.findOrCreate({email, facebook_id: profile.id, name: profile.displayName}, (err, user) => {
+
+      if (email) queue.defer(callback => User.findOne({email}, (err, found_user) => callback(err, user = found_user)))
+
+      queue.await(err => {
         if (err) return callback(err)
-        callback(null, user)
+        if (!user) user = new User({email})
+        user.save({facebook_id: profile.id, name: profile.displayName}, callback)
       })
 
     }))
