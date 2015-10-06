@@ -1,4 +1,4 @@
-import path from 'path'
+import _ from 'lodash'
 import passport from 'passport'
 import {Strategy as LocalStrategy} from 'passport-local'
 import {Strategy as FacebookStrategy} from 'passport-facebook'
@@ -42,13 +42,6 @@ export default function configureStrategies(options={}) {
   }))
 
   if (options.facebook) {
-    console.log('fb options', {
-      clientID: options.facebook.app_id,
-      clientSecret: options.facebook.app_secret,
-      callbackURL: path.join(options.facebook.url, options.facebook.paths.callback),
-      callbackURLplus: options.facebook.url + options.facebook.paths.callback,
-      profileFields: options.facebook.profile_fields,
-    })
     passport.use(new FacebookStrategy({
       clientID: options.facebook.app_id,
       clientSecret: options.facebook.app_secret,
@@ -57,9 +50,9 @@ export default function configureStrategies(options={}) {
     },
 
     (accessToken, refreshToken, profile, callback) => {
-      const email = profile.email
-      console.log('profile:', profile)
-      User.findOrCreate({email, facebook_id: profile.id}, (err, user) => {
+      const email = _.get(profile, 'emails[0].value', '')
+      console.log('profile:', profile, email)
+      User.findOrCreate({email, facebook_id: profile.id, name: profile.displayName}, (err, user) => {
         if (err) return callback(err)
         callback(null, user)
       })
