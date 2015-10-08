@@ -5,7 +5,13 @@ import LoginForm from './form'
 export default class Login extends React.Component {
 
   static propTypes = {
+    login: React.PropTypes.func,
     auth: React.PropTypes.object,
+  }
+
+  onSubmit = data => {
+    console.log('login submitted', data)
+    this.props.login(data.email, data.password)
   }
 
   render() {
@@ -16,7 +22,7 @@ export default class Login extends React.Component {
         {email ? (
           <LoginView {...this.props} />
         ) : (
-          <LoginForm {...this.props} />
+          <LoginForm onSubmit={this.onSubmit} {...this.props} />
         )}
 
       </div>

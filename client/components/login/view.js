@@ -7,16 +7,19 @@ export default class LoginView extends React.Component {
     logout: React.PropTypes.func,
   }
 
-  onLogout = (e) => {
-    e.preventDefault()
-    this.props.logout()
-  }
+  // onLogout = event => {
+  //   event.preventDefault()
+  //   this.props.logout()
+
+  //   // TODO: Where & how should we navigate in cases like this
+  //   window.location.assign('/logout')
+  // }
 
   render() {
     return (
       <div id="email">
         {this.props.auth.get('email')}
-        <button onCLick={this.onLogout}>logout</button>
+        <a href="/logout" className="btn btn-small" onClick={this.onLogout}>logout</a>
       </div>
     )
   }

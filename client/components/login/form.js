@@ -1,64 +1,42 @@
 import React from 'react'
 import {Button, Input} from 'react-bootstrap'
+import {connectReduxForm} from 'redux-form'
 
+@connectReduxForm({
+  form: 'login',
+  fields: ['email', 'password'],
+})
 export default class LoginForm extends React.Component {
 
   static propTypes = {
-    login: React.PropTypes.func,
     auth: React.PropTypes.object,
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  onSubmit = (e) => {
-    e.preventDefault()
-    this.props.login(this.state.email, this.state.password)
-  }
-  onNameChange = (e) => {
-    this.state.email = e.target.value
-  }
-  onPasswordChange = (e) => {
-    this.state.password = e.target.value
-  }
-
-  validationState() {
-    return null
+    fields: React.PropTypes.object.isRequired,
+    handleSubmit: React.PropTypes.func.isRequired,
   }
 
   render() {
     const loading = this.props.auth.get('loading')
     const error = this.props.auth.get('error')
+    const {fields: {email, password}, handleSubmit} = this.props
+
     return (
-      <form className="form-inline" onSubmit={this.onSubmit}>
+      <form className="form-inline" onSubmit={handleSubmit}>
 
-        <Input
-          onChange={this.onNameChange}
-          type="text"
-          value={this.state.email}
-          placeholder="email"
-          // label="email"
-          bsStyle={this.validationState()} />
-        <Input
-          onChange={this.onPasswordChange}
-          type="text"
-          value={this.state.password}
-          placeholder="password"
-          // label="password"
-          bsStyle={this.validationState()} />
+        <Input type="text" placeholder="email" {...email} />
+        {email.error && email.touched && <div>{email.error}</div>}
 
-        <Button onClick={this.onSubmit} bsStyle="primary">Login</Button>
+        <Input type="password" placeholder="password" {...password} />
+        {password.error && password.touched && <div>{password.error}</div>}
 
-        {loading && <p>loading...</p>}
-        {error && <p>Error: {error}</p>}
+        <Button onClick={handleSubmit} bsStyle="primary">Login</Button>
+        <br /><a href="/auth/facebook">Login with Facebook</a>
+        <br /><a href="/register">Register</a>
 
-        <a href="/auth/facebook">Login with Facebook</a>
+        {loading && <small><br />loading...</small>}
+        {error && <small><br />invalid email or password<span style={{display: 'none'}}>{error}</span></small>}
+
       </form>
     )
   }
 
 }
-
-
