@@ -7,7 +7,7 @@ import {Strategy as FacebookStrategy} from 'passport-facebook'
 
 export default function configureStrategies(options={}) {
   const User = options.User
-  if (!User) throw new Error(`Missing User model from fl-auth::configureStrategies, got ${options}`)
+  if (!User) throw new Error(`[fl-auth] Missing User model from configureStrategies, got ${options}`)
 
   // passport functions
   passport.use('login', new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) =>

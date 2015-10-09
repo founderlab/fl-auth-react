@@ -2,7 +2,7 @@ import passport from 'passport'
 
 export default function configureRoutes(options={}) {
   const app = options.app
-  if (!app) throw new Error(`Missing app from fl-auth::configureRoutes, got ${options}`)
+  if (!app) throw new Error(`[fl-auth] Missing app from configureRoutes, got ${options}`)
 
   // login via ajax
   app.post(options.paths.login, (req, res, next) => {

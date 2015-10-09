@@ -29,7 +29,7 @@ const defaults = {
 
 export default function configure(options={}) {
   _.merge(options, defaults)
-  if (!options.app) throw new Error('fl-auth-server init: Missing app from options')
+  if (!options.app) throw new Error('[fl-auth] init: Missing app from options')
   options.User = options.User || options.user_model_type || require('./models/user')
 
   configureMiddleware(options)
