@@ -1,5 +1,5 @@
 import createRegisterStrategy from './create_register'
 import BearerStrategy from './bearer'
-import LoginStrategy from './login'
+import PasswordStrategy from './password'
 
-export default {BearerStrategy, LoginStrategy, createRegisterStrategy}
+export default {BearerStrategy, PasswordStrategy, createRegisterStrategy}

@@ -7,9 +7,9 @@ if (!db_url) console.log('Missing process.env.DATABASE_URL')
 
 export default class User extends Backbone.Model {
   url = `${db_url}/Users`
-  schema = {
+  schema = () => ({
     access_tokens: () => ['hasMany', require('./access_token')],
-  }
+  })
 
   defaults() { return {created_at: moment.utc().toDate()} }
 
@@ -18,4 +18,5 @@ export default class User extends Backbone.Model {
   static createHash(password) { return bcrypt.hashSync(password) }
 }
 
+// User.prototype.schema = {}
 User.prototype.sync = require('backbone-mongo').sync(User)

@@ -1,4 +1,5 @@
 import {Strategy as LocalStrategy} from 'passport-local'
+import {findOrCreateAccessToken} from '../lib'
 
 export default function createRegisterStrategy(User) {
 
@@ -14,10 +15,16 @@ export default function createRegisterStrategy(User) {
       const new_user = new User({email, password: User.createHash(password)})
       new_user.save(err => {
         if (err) return callback(err)
-        callback(null, new_user)
-      })
 
+        findOrCreateAccessToken({user_id: user.id}, (err, access_token) => {
+          if (err) return callback(err)
+          console.log('passwd: access_token', access_token)
+          req.session.access_token = access_token.toJSON()
+          req.session.save((err) => console.log('saved session', err, req.session))
+          callback(null, new_user)
+        })
+
+      })
     })
   })
-
 }

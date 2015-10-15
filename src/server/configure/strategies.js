@@ -2,7 +2,7 @@ import _ from 'lodash'
 import Queue from 'queue-async'
 import passport from 'passport'
 
-import {BearerStrategy, LoginStrategy, createRegisterStrategy} from '../strategies'
+import {BearerStrategy, PasswordStrategy, createRegisterStrategy} from '../strategies'
 
 import {Strategy as FacebookStrategy} from 'passport-facebook'
 
@@ -12,7 +12,7 @@ export default function configureStrategies(options={}) {
   if (!User) throw new Error(`[fl-auth] Missing User model from configureStrategies, got ${options}`)
 
   // passport functions
-  passport.use('login', new LoginStrategy({User}))
+  passport.use('password', new PasswordStrategy({User}))
   passport.use('register', createRegisterStrategy(User))
 
   if (options.facebook) {

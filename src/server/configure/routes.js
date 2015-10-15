@@ -7,7 +7,7 @@ export default function configureRoutes(options={}) {
   // login via ajax
   app.post(options.paths.login, (req, res, next) => {
 
-    passport.authenticate('login', (err, user, msg) => {
+    passport.authenticate('password', (err, user, msg) => {
       if (err) return res.status(500).json({error: err})
       if (!user) return res.status(401).json({error: msg})
 
