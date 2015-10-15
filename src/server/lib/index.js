@@ -8,6 +8,7 @@ const RESOURCE_EXPIRY_MINS = 5
 const TOKEN_EXPIRY_MINS = 120
 const SESSION_EXPIRY_DAYS = 365
 
+
 function cleanUpTokens(callback) {
   AccessToken.destroy({expires_at: {$lte: moment.utc().subtract(RESOURCE_EXPIRY_MINS, 'minutes').toDate()}}, (err) => {
     if (err) return callback(err)
@@ -16,6 +17,7 @@ function cleanUpTokens(callback) {
 }
 
 function getExpiryTime() { return moment.utc().add(TOKEN_EXPIRY_MINS, 'minutes').toDate() }
+
 
 export function findOrCreateAccessToken(query, options={}, done) {
 

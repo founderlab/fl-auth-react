@@ -26,7 +26,7 @@ export default class BearerStrategy extends Strategy {
 
     if (req.body && req.body.$access_token) delete req.body.$access_token
 
-    if (!access_token && this.check_cookies && req.cookies) access_token = req.cookies.access_token
+    if (this.check_cookies && !access_token && req.cookies) access_token = req.cookies.access_token
 
     this.verify(req, access_token, (err, user, info) => {
       if (err) return this.error(err)
