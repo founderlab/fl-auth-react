@@ -16,10 +16,10 @@ export default function createRegisterStrategy(User) {
       new_user.save(err => {
         if (err) return callback(err)
 
-        findOrCreateAccessToken({user_id: user.id}, (err, access_token) => {
+        findOrCreateAccessToken({user_id: user.id}, {expires: true}, (err, access_token, info) => {
           if (err) return callback(err)
           console.log('passwd: access_token', access_token)
-          req.session.access_token = access_token.toJSON()
+          req.session.access_token = {id: access_token, expires_at: info.expires_at}
           req.session.save((err) => console.log('saved session', err, req.session))
           callback(null, new_user)
         })

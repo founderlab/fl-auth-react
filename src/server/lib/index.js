@@ -36,7 +36,7 @@ export function findOrCreateAccessToken(query, options={}, done) {
     queue.defer((callback) => {
       AccessToken.findOne(query, (err, access_token_) => {
         if (err) return callback(err)
-        if (!access_token_ || !access_token_.get('expires_at')) return callback() // exists but expires
+        if (access_token_ && !access_token_.get('expires_at')) return callback() // exists but expires
         access_token = access_token_
         callback()
       })
