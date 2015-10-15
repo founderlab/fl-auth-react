@@ -1,13 +1,9 @@
 import {Strategy as LocalStrategy} from 'passport-local'
 
-export default class LoginStrategy extends LocalStrategy {
-  constructor(options, ...args) {
-    super(options, ...args)
-    this.User = options.User
-  }
+export default function createLoginStrategy(User) {
 
-  verify(req, email, password, callback) {
-    this.User.findOne({email}, (err, user) => {
+  return new LocalStrategy({passReqToCallback: true, usernameField: 'email'}, (req, email, password, callback) => {
+    User.findOne({email}, (err, user) => {
       if (err) return callback(err)
       if (!user) {
         console.log('login error: user not found', email)
@@ -18,5 +14,6 @@ export default class LoginStrategy extends LocalStrategy {
       }
       callback(null, user)
     })
-  }
+  })
+
 }

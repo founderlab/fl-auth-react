@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import configureStrategies from './strategies'
-import configureRoutes from './routes'
-import configureMiddleware from './middleware'
-import configureSerializing from './serialize'
+import configureStrategies from './configure/strategies'
+import configureRoutes from './configure/routes'
+import configureMiddleware from './configure/middleware'
+import configureSerializing from './configure/serialize'
 import ensureLoggedIn from './auth/ensure_logged_in'
 
 const defaults = {

@@ -1,4 +1,4 @@
-import Strategy from 'passport'
+import {Strategy} from 'passport'
 import parseAuthHeader from '../lib'
 
 // bearer token that considers request and cookies
