@@ -1,4 +1,3 @@
-// import request from 'axios'
 import request from 'superagent'
 
 export function register(email, password) {
