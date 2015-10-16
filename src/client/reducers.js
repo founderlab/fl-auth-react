@@ -4,6 +4,7 @@ const default_state = new Immutable.Map()
 
 export default function authReducer(state=default_state, action={}) {
 
+  console.log(action.type, action)
   switch (action.type) {
     case 'REGISTER_START':
     case 'LOGIN_START':
@@ -11,7 +12,7 @@ export default function authReducer(state=default_state, action={}) {
 
     case 'REGISTER_ERROR':
     case 'LOGIN_ERROR':
-      return state.merge({loading: false, error: action.res.body.error})
+      return state.merge({loading: false, error: action.error || action.res.body.error})
 
     case 'REGISTER_SUCCESS':
     case 'LOGIN_SUCCESS':
