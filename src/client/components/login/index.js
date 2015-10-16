@@ -10,7 +10,6 @@ export default class Login extends React.Component {
   }
 
   onSubmit = data => {
-    console.log('login submitted', data)
     this.props.login(data.email, data.password)
   }
 

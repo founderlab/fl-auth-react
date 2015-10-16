@@ -1,6 +1,7 @@
 import _ from 'lodash'
+import moment from 'moment'
 import {Strategy} from 'passport'
-import parseAuthHeader from '../lib'
+import {parseAuthHeader, logout} from '../lib'
 import AccessToken from '../models/access_token'
 
 const defaults = {
@@ -23,13 +24,35 @@ export default class BearerStrategy extends Strategy {
   verify(req, access_token_id, callback) {
     console.log('verifying', access_token_id)
     const User = this.User
-    AccessToken.cursor({id: access_token_id, $one: true}).values('user_id').toJSON((err, user_id) => {
-      if (err || !user_id) return callback(err, false)
-      User.findOne(user_id, (err, user) => {
+
+    AccessToken.cursor({id: access_token_id, $one: true}).toJSON((err, access_token) => {
+      if (err || !access_token) return callback(err, false)
+
+      // todo: when to refresh tokens?
+      // const expires_at = access_token.expires_at
+
+      // if (expires_at && moment().isAfter(expires_at)) {
+      //   this.refreshToken(access_token.refresh_token, (err, new_access_token) => {
+      //     if (err || !new_access_token) {
+      //       logout()
+      //       return res.redirect(302, '/login')
+      //     }
+      //     req.session.access_token = new_access_token
+      //     req.session.save(err => { if (err) console.log('Failed to save access token to session during refresh') } )
+      //     next()
+      //   })
+
+      // } else next()
+
+      User.findOne(access_token.user_id, (err, user) => {
         if (err) return callback(err)
         callback(null, user)
       })
     })
+  }
+
+  refreshToken(refresh_token, callback) {
+    callback()
   }
 
   authenticate(req) {
