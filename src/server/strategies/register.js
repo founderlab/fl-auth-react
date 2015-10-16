@@ -22,10 +22,10 @@ export default class RegisterStrategy extends Strategy {
 
         findOrCreateAccessToken({user_id: user.id}, {expires: true}, (err, access_token, info) => {
           if (err) return callback(err)
-          console.log('passwd: access_token', access_token)
           req.session.access_token = {id: access_token, expires_at: info.expires_at}
           req.session.save(err => console.log('saved session', err, req.session))
-          callback(null, user)
+          console.log('register: access_token', req.session.access_token)
+          callback(null, user, {access_token})
         })
 
       })
@@ -39,10 +39,10 @@ export default class RegisterStrategy extends Strategy {
 
     if (!email || !password) return this.fail({message: options.bad_request_message}, 400)
 
-    this.verify(req, email, password, (err, user, msg) => {
+    this.verify(req, email, password, (err, user, info) => {
       if (err) return this.error(err)
-      if (!user) return this.fail(msg)
-      this.success(user, msg)
+      if (!user) return this.fail(info)
+      this.success(user, info)
     })
   }
 

@@ -8,14 +8,16 @@ export default function configureRoutes(options={}) {
   // login via ajax
   app.post(options.paths.login, (req, res, next) => {
 
-    passport.authenticate('password', (err, user, msg) => {
+    passport.authenticate('password', (err, user, info) => {
       if (err) return res.status(500).json({error: err})
-      if (!user) return res.status(401).json({error: msg})
+      if (!user) return res.status(401).json({error: info})
 
       req.login(user, {}, err => {
         if (err) return res.status(500).json({error: err})
 
+        const {access_token} = info
         return res.json({
+          access_token,
           user: {
             id: req.user.id,
             email: req.user.get('email'),
@@ -28,13 +30,16 @@ export default function configureRoutes(options={}) {
   // register via ajax
   app.post(options.paths.register, (req, res, next) => {
 
-    passport.authenticate('register', (err, user, msg) => {
+    passport.authenticate('register', (err, user, info) => {
       if (err) return res.status(500).json({error: err})
-      if (!user) return res.status(402).json({error: msg})
+      if (!user) return res.status(402).json({error: info})
 
       req.login(user, {}, err => {
         if (err) return res.status(500).json({error: err})
+
+        const {access_token} = info
         return res.json({
+          access_token,
           user: {
             id: user.id,
             email: user.get('email'),
