@@ -41,7 +41,6 @@ export function findOrCreateAccessToken(query, options={}, done) {
         callback()
       })
     })
-
   } else if (!refresh_token) {
     queue.defer((callback) => {
       refresh_token = new RefreshToken(query)
@@ -49,7 +48,7 @@ export function findOrCreateAccessToken(query, options={}, done) {
     })
   }
 
-  queue.await((err) => {
+  queue.await(err => {
     if (err) return callback(err)
     if (access_token) callback(null, access_token)
 
@@ -57,9 +56,9 @@ export function findOrCreateAccessToken(query, options={}, done) {
     if (options.expires) _.extend(create_query, {expires_at: getExpiryTime(), refresh_token: refresh_token.id})
     access_token = new AccessToken(create_query)
 
-    access_token.save((err) => {
+    access_token.save(err => {
       if (err) return callback(err)
-      cleanUpTokens((err) => {
+      cleanUpTokens(err => {
         if (err) return callback(err)
         callback(null, access_token)
       })
@@ -80,4 +79,23 @@ export function parseAuthHeader(req, name) {
   let auth = null
   if (new RegExp(`^${name}$`, 'i').test(scheme)) auth = credentials
   return auth
+}
+
+export function expireToken(id, callback) {
+  AccessToken.destroy(id, callback)
+}
+
+export function logout(req, callback) {
+  req.logout()
+  const access_token = req.session.access_token
+  req.session.destroy(err => {
+    if (err) console.log('[fl-auth] logout: Error destroying session', err)
+    if (access_token) {
+      return expireToken(access_token.id, err => {
+        if (err) console.log('[fl-auth] logout: Failed to expire access_token', err)
+        callback(err)
+      })
+    }
+    callback(err)
+  })
 }

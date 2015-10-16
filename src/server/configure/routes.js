@@ -1,4 +1,5 @@
 import passport from 'passport'
+import logout from '../lib'
 
 export default function configureRoutes(options={}) {
   const app = options.app
@@ -45,8 +46,7 @@ export default function configureRoutes(options={}) {
 
   // logout
   app.all('/logout', (req, res) => {
-    req.logout()
-    res.redirect('/')
+    logout(req, () => res.redirect('/'))
   })
 
   if (options.facebook) {

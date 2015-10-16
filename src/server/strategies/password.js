@@ -2,18 +2,12 @@ import _ from 'lodash'
 import {Strategy} from 'passport'
 import {findOrCreateAccessToken} from '../lib'
 
-const defaults = {
-  username_field: 'email',
-  password_field: 'password',
-  bad_request_message: 'Missing credentials',
-}
 
 export default class PasswordStrategy extends Strategy {
   constructor(options={}) {
     super()
-    _.defaults(options, defaults)
     _.merge(this, options)
-    if (!this.User) throw new Error('[fl-auth] emailStrategy: Missing User from options')
+    if (!this.User) throw new Error('[fl-auth] PasswordStrategy: Missing User from options')
   }
 
   verify(req, email, password, callback) {
@@ -33,7 +27,7 @@ export default class PasswordStrategy extends Strategy {
         if (err) return callback(err)
         console.log('passwd: access_token', access_token)
         req.session.access_token = {id: access_token, expires_at: info.expires_at}
-        req.session.save((err) => console.log('saved session', err, req.session))
+        req.session.save(err => console.log('saved session', err, req.session))
         callback(null, user)
       })
     })

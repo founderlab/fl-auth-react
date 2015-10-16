@@ -3,7 +3,7 @@ import configureStrategies from './configure/strategies'
 import configureRoutes from './configure/routes'
 import configureMiddleware from './configure/middleware'
 import configureSerializing from './configure/serialize'
-import ensureLoggedIn from './auth/ensure_logged_in'
+import {ensureLoggedIn, bearer} from './middleware/ensure_logged_in'
 
 const defaults = {
   middleware: {
@@ -25,12 +25,17 @@ const defaults = {
     scope: ['email'],
     profile_fields: ['id', 'displayName', 'email'],
   },
+  login: {
+    username_field: 'email',
+    password_field: 'password',
+    bad_request_message: 'Missing credentials',
+  },
 }
 
 export default function configure(options={}) {
   _.merge(options, defaults)
   if (!options.app) throw new Error('[fl-auth] init: Missing app from options')
-  options.User = options.User || options.user_model_type || require('./models/user')
+  options.User = options.User || require('./models/user')
 
   configureMiddleware(options)
   configureSerializing(options)
@@ -38,4 +43,4 @@ export default function configure(options={}) {
   configureRoutes(options)
 }
 
-export {configure, ensureLoggedIn}
+export {configure, ensureLoggedIn, bearer}

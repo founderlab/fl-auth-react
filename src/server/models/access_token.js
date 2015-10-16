@@ -10,7 +10,7 @@ export default class AccessToken extends Backbone.Model {
     created_at: [{indexed: true}],
     expires_at: [{indexed: true}],
     // client: -> ['belongsTo', require('./client')]
-    user: () => ['belongsTo', require('./user')],
+    // user: () => ['belongsTo', require('./user')],
     refresh_token: () => ['belongsTo', require('./refresh_token')],
   })
 
