@@ -25,8 +25,11 @@ export default class RegisterForm extends React.Component {
   render() {
     const loading = this.props.auth.get('loading')
     const error = this.props.auth.get('error')
+    const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
     const {fields: {email, password}, handleSubmit} = this.props
 
+    console.log('email, password', email, password)
+console.log('handleSubmit', handleSubmit)
     return (
       <form className="form-inline" onSubmit={handleSubmit}>
 
@@ -39,7 +42,7 @@ export default class RegisterForm extends React.Component {
         <Button onClick={handleSubmit} bsStyle="primary">Register</Button>
 
         {loading && <small>loading...</small>}
-        {error && <small>Error: {error}</small>}
+        {error && <small>{error_msg}</small>}
 
         <a href="/auth/facebook">Login with Facebook</a>
       </form>

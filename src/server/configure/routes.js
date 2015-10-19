@@ -31,6 +31,9 @@ export default function configureRoutes(options={}) {
   app.post(options.paths.register, (req, res, next) => {
 
     passport.authenticate('register', (err, user, info) => {
+    // console.log('Failing:', arguments)
+    console.log('Failing:', err, user, info)
+    console.log('info:', JSON.stringify(info))
       if (err) return res.status(500).json({error: err})
       if (!user) return res.status(402).json({error: info})
 

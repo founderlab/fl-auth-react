@@ -5,8 +5,12 @@ export default function ensureLoggedIn(req, res, next) {
   next()
 }
 
-const bearer = passport.authenticate('bearer', {session: false})
-export {bearer}
+export function bearer(req, res, next) {
+  passport.authenticate('bearer', {session: false}, (err, user, info) => {
+    console.log('bearer got', err, user, info)
+    next()
+  })(req, res, next)
+}
 
 // 208:     passport.authenticate('bearer', {session: false}),
 
