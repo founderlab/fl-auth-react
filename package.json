@@ -1,8 +1,8 @@
 {
   "name": "fl-auth",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Auth package for FounderLab apps",
-  "main": "lib/server/index.js",
+  "main": "lib/index.js",
   "author": {
     "name": "Gwilym Humphreys",
     "url": "https://github.com/gwilymhumphreys"
@@ -14,15 +14,16 @@
     "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib"
   },
   "dependencies": {
-    "backbone": "^1.2.0",
-    "backbone-mongo": "^0.6.10",
-    "bcrypt-nodejs": "0.0.3",
+    "immutable": "^3.7.5",
     "lodash": "*",
     "moment": "^2.10.6",
-    "passport": "^0.2.2",
-    "passport-facebook": "^2.0.0",
-    "passport-local": "^1.0.0",
     "queue-async": "^1.0.7",
+    "react": "^0.14.0",
+    "react-bootstrap": "^0.27.2",
+    "react-dom": "^0.14.0",
+    "react-redux": "^4.0.0",
+    "redux": "^3.0.2",
+    "redux-form": "^2.4.1",
     "superagent": "0.18.0"
   },
   "devDependencies": {
