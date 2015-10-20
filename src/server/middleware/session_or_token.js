@@ -1,23 +1,18 @@
 import passport from 'passport'
 
-export default function ensureLoggedIn(req, res, next) {
-  if (!req.isAuthenticated || !req.isAuthenticated()) return res.redirect(302, '/login')
-  next()
-}
-
-export function bearer(req, res, next) {
+export default function sessionOrToken(req, res, next) {
+  if (req.isAuthenticated()) return next()
   passport.authenticate('bearer', {session: false}, (err, user, info) => {
-    console.log('bearer got', err, user, info)
+    if (err) return res.status(500).send({error: err})
+    if (!user) {
+      if (req.method === 'get') return res.redirect(302, '/login')
+      return res.status(401).send({error: 'Unauthorized'})
+    }
     next()
   })(req, res, next)
 }
 
-// 208:     passport.authenticate('bearer', {session: false}),
-
-
-// Queue = require 'queue-async'
-// moment = require 'moment'
-// passport = require 'passport'
+//todo: refresh token
 
 // module.exports = (server_auth, callback) -> return (req, res, next) ->
 //   if !req.isAuthenticated or !req.isAuthenticated()

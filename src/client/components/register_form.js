@@ -5,7 +5,7 @@ import {connectReduxForm} from 'redux-form'
 function validateEmailPass(data) {
   const errors = {}
   if (data.email && data.email.match(/.+@.+/)) errors.email = 'please enter an email address'
-  if (data.password && data.password.length < 6) errors.password = '6 characters min for your password'
+  // if (data.password && data.password.length < 6) errors.password = '6 characters min for your password'
   return errors
 }
 
@@ -28,8 +28,6 @@ export default class RegisterForm extends React.Component {
     const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
     const {fields: {email, password}, handleSubmit} = this.props
 
-    console.log('email, password', email, password)
-console.log('handleSubmit', handleSubmit)
     return (
       <form className="form-inline" onSubmit={handleSubmit}>
 

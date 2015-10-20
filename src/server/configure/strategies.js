@@ -12,7 +12,7 @@ export default function configureStrategies(options={}) {
   const strategy_options = {User, ...options.login}
   passport.use('password', new PasswordStrategy(strategy_options))
   passport.use('register', new RegisterStrategy(strategy_options))
-  passport.use('bearer', new BearerStrategy(strategy_options))
+  // passport.use('bearer', new BearerStrategy(strategy_options))
 
   if (options.facebook) {
     passport.use(new FacebookStrategy({

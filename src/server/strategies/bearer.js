@@ -58,13 +58,6 @@ export default class BearerStrategy extends Strategy {
   authenticate(req) {
     let access_token = null
 
-    console.log('bearer auth 1', req.user)
-    console.log('bearer auth 2', req.headers)
-    console.log('bearer auth 3', req.query, req.body)
-    console.log('bearer auth 4', req.cookies)
-    //todo: what is this
-    if (req.user && this.name !== 'root_bearer') return this.success(req.user)
-
     if (req.headers && req.headers.authorization) access_token = parseAuthHeader(req, 'Bearer')
 
     if (this.check_request && !access_token) access_token = ((req.query && req.query.$access_token) || (req.body && req.body.$access_token))

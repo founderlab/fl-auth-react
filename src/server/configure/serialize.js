@@ -9,6 +9,6 @@ export default function configureSerializing(options={}) {
     if (!user) return callback(new Error('User missing'))
     callback(null, user.id)
   })
-  passport.deserializeUser((id, callback) => {User.findOne(id, callback)})
 
+  passport.deserializeUser((id, callback) => User.findOne(id, callback))
 }

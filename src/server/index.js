@@ -3,7 +3,7 @@ import configureStrategies from './configure/strategies'
 import configureRoutes from './configure/routes'
 import configureMiddleware from './configure/middleware'
 import configureSerializing from './configure/serialize'
-import {ensureLoggedIn, bearer} from './middleware/ensure_logged_in'
+import sessionOrToken from './middleware/session_or_token'
 
 const defaults = {
   middleware: {
@@ -43,4 +43,4 @@ export default function configure(options={}) {
   configureRoutes(options)
 }
 
-export {configure, ensureLoggedIn, bearer}
+export {configure, sessionOrToken}

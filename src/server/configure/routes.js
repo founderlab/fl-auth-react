@@ -10,7 +10,7 @@ export default function configureRoutes(options={}) {
 
     passport.authenticate('password', (err, user, info) => {
       if (err) return res.status(500).json({error: err})
-      if (!user) return res.status(401).json({error: info})
+      if (!user) return res.status(401).json({error: 'Incorrect username or password'})
 
       req.login(user, {}, err => {
         if (err) return res.status(500).json({error: err})
@@ -31,9 +31,6 @@ export default function configureRoutes(options={}) {
   app.post(options.paths.register, (req, res, next) => {
 
     passport.authenticate('register', (err, user, info) => {
-    // console.log('Failing:', arguments)
-    console.log('Failing:', err, user, info)
-    console.log('info:', JSON.stringify(info))
       if (err) return res.status(500).json({error: err})
       if (!user) return res.status(402).json({error: info})
 

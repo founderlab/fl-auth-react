@@ -21,7 +21,6 @@ export default class LoginForm extends React.Component {
     const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
     const form_class = (this.props.mode === 'horizontal' ? 'form-inline': '')
 
-console.log('handleSubmit', handleSubmit)
     return (
       <form className={form_class} onSubmit={handleSubmit}>
 
