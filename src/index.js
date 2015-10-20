@@ -1,6 +1,6 @@
 import actions from './actions'
-import reducers from './reducers'
+import reducer from './reducer'
 import LoginForm from './components/login_form'
 import RegisterForm from './components/register_form'
 
-export default {actions, reducers, LoginForm, RegisterForm}
+export default {actions, reducer, LoginForm, RegisterForm}
