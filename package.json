@@ -1,7 +1,7 @@
 {
-  "name": "fl-auth",
+  "name": "fl-auth-react",
   "version": "0.1.0",
-  "description": "Auth package for FounderLab apps",
+  "description": "React / redux login forms for FounderLab apps",
   "main": "lib/index.js",
   "author": {
     "name": "Gwilym Humphreys",
