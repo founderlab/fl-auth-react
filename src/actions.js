@@ -2,7 +2,7 @@ import request from 'superagent'
 
 export function register(url, email, password) {
   return {
-    type: 'LOGIN',
+    type: 'REGISTER',
     request: request.post(url).send({email, password}),
   }
 }
