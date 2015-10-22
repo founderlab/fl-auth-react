@@ -1,8 +1,10 @@
-# Auth pacakge for FounderLab apps
+# Auth package for FounderLab apps
 
-Usage (server):
+Usage: 
+    
+    // Ensure that the auth reducer from react-auth-redux is in place
 
-  import {configure as configureAuth, loggedIn} from 'fl-auth'
+    import {LoginForm, RegisterForm} from 'fl-auth-react'
 
-  app = express()                   // Provide your express app
-  configureAuth({app})
+    <LoginForm onSubmit={functionToCallWhenLoginSubmitted} />
+    <RegisterForm onSubmit={functionToCallWhenRegSubmitted} />

@@ -1,7 +1,7 @@
 {
   "name": "fl-auth-react",
-  "version": "0.1.0",
-  "description": "React / redux login forms for FounderLab apps",
+  "version": "0.1.1",
+  "description": "React/redux-form login forms for FounderLab apps",
   "main": "lib/index.js",
   "author": {
     "name": "Gwilym Humphreys",
@@ -14,17 +14,12 @@
     "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib"
   },
   "dependencies": {
-    "immutable": "^3.7.5",
     "lodash": "*",
-    "moment": "^2.10.6",
-    "queue-async": "^1.0.7",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.2",
-    "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
     "redux": "^3.0.2",
     "redux-form": "^2.4.1",
-    "superagent": "0.18.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",
