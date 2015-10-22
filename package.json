@@ -14,12 +14,9 @@
     "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib"
   },
   "dependencies": {
-    "lodash": "*",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.2",
-    "react-redux": "^4.0.0",
-    "redux": "^3.0.2",
-    "redux-form": "^2.4.1",
+    "redux-form": "^2.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",
