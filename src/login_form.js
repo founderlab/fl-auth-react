@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, Input} from 'react-bootstrap'
 import {connectReduxForm} from 'redux-form'
+import {validationState} from './validation'
 
 @connectReduxForm({
   form: 'login',
@@ -15,11 +16,6 @@ export default class LoginForm extends React.Component {
     handleSubmit: React.PropTypes.func.isRequired,
   }
 
-  validationState(field) {
-    if (field.touched && field.error) return 'error'
-    return null
-  }
-
   render() {
     const {fields: {email, password}, handleSubmit, auth} = this.props
     const login_error = auth.get('login_error')
@@ -30,10 +26,10 @@ export default class LoginForm extends React.Component {
       <form className={form_class} onSubmit={handleSubmit}>
 
         <Input type="text" placeholder="email"
-          bsStyle={this.validationState(email)} help={email.touched && email.error} {...email} />
+          bsStyle={validationState(email)} help={email.touched && email.error} {...email} />
 
         <Input type="password" placeholder="password"
-          bsStyle={this.validationState(password)} help={password.touched && password.error} {...password} />
+          bsStyle={validationState(password)} help={password.touched && password.error} {...password} />
 
         <Button onClick={handleSubmit} bsStyle="primary">Login</Button>
         <br /><a href="/auth/facebook">Login with Facebook</a>

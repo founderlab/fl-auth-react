@@ -1,13 +1,7 @@
 import React from 'react'
 import {Button, Input} from 'react-bootstrap'
 import {connectReduxForm} from 'redux-form'
-
-function validateEmailPass(data) {
-  const errors = {}
-  if (data.email && data.email.match(/.+@.+/)) errors.email = 'please enter an email address'
-  // if (data.password && data.password.length < 6) errors.password = '6 characters min for your password'
-  return errors
-}
+import {validationState, validateEmailPass} from './validation'
 
 @connectReduxForm({
   form: 'register',
@@ -36,10 +30,10 @@ export default class RegisterForm extends React.Component {
     return (
       <form onSubmit={handleSubmit}>
         <Input type="text" placeholder="email"
-          bsStyle={this.validationState(email)} help={email.touched && email.error} {...email} />
+          bsStyle={validationState(email)} help={email.touched && email.error} {...email} />
 
         <Input type="password" placeholder="password"
-          bsStyle={this.validationState(password)} help={password.touched && password.error} {...password} />
+          bsStyle={validationState(password)} help={password.touched && password.error} {...password} />
 
         <Button onClick={handleSubmit} bsStyle="primary">Register</Button>
 

@@ -11,7 +11,8 @@
   "scripts": {
     "prepublish": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --out-dir ./lib",
     "build": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --out-dir ./lib",
-    "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib"
+    "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib",
+    "test": "eval $(cat test/.env) mocha test/**/*.tests.js"
   },
   "dependencies": {
     "react": "^0.14.0",
@@ -21,7 +22,8 @@
   "devDependencies": {
     "babel-eslint": "^4.1.3",
     "eslint": "^1.5.1",
+    "eslint-config-founderlab": "git+https://founderlab-dummy:5901023845@bitbucket.org/founderlab/eslint-config-founderlab",
     "eslint-plugin-react": "^3.4.2",
-    "eslint-config-founderlab": "git+https://founderlab-dummy:5901023845@bitbucket.org/founderlab/eslint-config-founderlab"
+    "expect": "^1.12.2"
   }
 }
