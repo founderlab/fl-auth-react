@@ -22,10 +22,9 @@ export default class RegisterForm extends React.Component {
   }
 
   render() {
-    const loading = this.props.auth.get('loading')
-    const register_error = this.props.auth.get('register_error')
-    const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (register_error || '').toString()
-    const {fields: {email, password}, handleSubmit} = this.props
+    const {fields: {email, password}, handleSubmit, auth} = this.props
+    const error = auth.get('errors') ? auth.get('errors').get('register') : null
+    const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
 
     return (
       <form onSubmit={handleSubmit}>
@@ -37,8 +36,8 @@ export default class RegisterForm extends React.Component {
 
         <Button onClick={handleSubmit} bsStyle="primary">Register</Button>
 
-        {loading && <small>loading...</small>}
-        {register_error && <small>{error_msg}</small>}
+        {auth.get('loading') && <small>loading...</small>}
+        {error && <small>{error_msg}</small>}
 
         <a href="/auth/facebook">Login with Facebook</a>
       </form>
