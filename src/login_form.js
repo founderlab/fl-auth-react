@@ -34,6 +34,7 @@ export default class LoginForm extends React.Component {
         <Button onClick={handleSubmit} bsStyle="primary">Login</Button>
         <br /><a href="/auth/facebook">Login with Facebook</a>
         <br /><a href="/register">Register</a>
+        <br /><a href="/reset_request">Forgot?</a>
 
         {auth.get('loading') && <small><br />loading...</small>}
         {error && <small><br />Invalid email or password<span style={{display: 'none'}}>{error_msg}</span></small>}

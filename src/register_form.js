@@ -16,11 +16,6 @@ export default class RegisterForm extends React.Component {
     handleSubmit: React.PropTypes.func.isRequired,
   }
 
-  validationState(field) {
-    if (field.touched && field.error) return 'error'
-    return null
-  }
-
   render() {
     const {fields: {email, password}, handleSubmit, auth} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('register') : null
