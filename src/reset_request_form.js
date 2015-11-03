@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import {Button, Input} from 'react-bootstrap'
 import {connectReduxForm} from 'redux-form'
 import {validationState} from './validation'
@@ -7,12 +7,12 @@ import {validationState} from './validation'
   form: 'reset',
   fields: ['email'],
 })
-export default class ResetRequestForm extends React.Component {
+export default class ResetRequestForm extends Component {
 
   static propTypes = {
-    auth: React.PropTypes.object.isRequired,
-    fields: React.PropTypes.object.isRequired,
-    handleSubmit: React.PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    fields: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
   }
 
   render() {

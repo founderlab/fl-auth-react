@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import {Button, Input} from 'react-bootstrap'
 import {connectReduxForm} from 'redux-form'
 import {validationState, validateEmailPass} from './validation'
@@ -14,17 +14,17 @@ import {validationState, validateEmailPass} from './validation'
   fields: ['email', 'password', 'reset_token'],
   validate: validateEmailPass,
 })
-export default class ResetForm extends React.Component {
+export default class ResetForm extends Component {
 
   static propTypes = {
-    auth: React.PropTypes.object.isRequired,
-    query: React.PropTypes.object.isRequired,
-    fields: React.PropTypes.object.isRequired,
-    handleSubmit: React.PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    query: PropTypes.object.isRequired,
+    fields: PropTypes.object.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
   }
 
   onSubmit = (data) => {
-    console.log('asdsadas')
     data.email = this.props.query.get('email')
     data.reset_token = this.props.query.get('reset_token')
     this.props.onSubmit(data)
