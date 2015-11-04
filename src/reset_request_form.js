@@ -6,10 +6,7 @@ import {validationState} from './validation'
 @connectReduxForm({
   form: 'reset',
   fields: ['email'],
-  initialValues: (props) => {
-    console.log('initialValues', props)
-    return {email: props.email}
-  },
+  // todo: default value from email prop
 })
 export default class ResetRequestForm extends Component {
 
@@ -24,8 +21,6 @@ export default class ResetRequestForm extends Component {
     const {fields: {email}, handleSubmit, auth} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('reset') : null
     const reset_email_sent = auth.get('reset_email_sent')
-    // if (!email.value && this.props.email) email.value = this.props.email
-    // email.touched = true
 
     return (
       <form onSubmit={handleSubmit}>

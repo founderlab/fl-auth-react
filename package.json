@@ -1,6 +1,6 @@
 {
   "name": "fl-auth-react",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "React/redux-form login forms for FounderLab apps",
   "main": "lib/index.js",
   "author": {
@@ -17,7 +17,7 @@
   "dependencies": {
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.2",
-    "redux-form": "v3.0.0-beta-4"
+    "redux-form": "2.4.5"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",
