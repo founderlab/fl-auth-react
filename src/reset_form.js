@@ -18,15 +18,16 @@ export default class ResetForm extends Component {
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
-    query: PropTypes.object.isRequired,
+    email: PropTypes.string.isRequired,
+    reset_token: PropTypes.string.isRequired,
     fields: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
   }
 
   onSubmit = (data) => {
-    data.email = this.props.query.get('email')
-    data.reset_token = this.props.query.get('reset_token')
+    data.email = this.props.email
+    data.reset_token = this.props.reset_token
     this.props.onSubmit(data)
   }
 
@@ -37,7 +38,7 @@ export default class ResetForm extends Component {
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
-        <p>{this.props.query.get('email')}</p>
+        <p>{this.props.email}</p>
         <Input type="password" placeholder="password"
           bsStyle={validationState(password)} help={password.touched && password.error} {...password} />
 
@@ -45,9 +46,7 @@ export default class ResetForm extends Component {
 
         {auth.get('loading') && <small>loading...</small>}
         {error && <small>{error_msg}</small>}
-
       </form>
     )
   }
-
 }
