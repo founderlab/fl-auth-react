@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {Button, Input} from 'react-bootstrap'
-import {connectReduxForm} from 'redux-form'
+import {reduxForm} from 'redux-form'
 import {validationState, validateEmailPass} from './validation'
 
 //
@@ -9,7 +9,7 @@ import {validationState, validateEmailPass} from './validation'
 // That link should have email / reset_token as query params, which will be in props.query
 //
 
-@connectReduxForm({
+@reduxForm({
   form: 'reset',
   fields: ['email', 'password', 'reset_token'],
   validate: validateEmailPass,

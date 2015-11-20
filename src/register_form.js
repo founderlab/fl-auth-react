@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 import {Button, Input} from 'react-bootstrap'
-import {connectReduxForm} from 'redux-form'
+import {reduxForm} from 'redux-form'
 import {validationState, validateEmailPass} from './validation'
 
-@connectReduxForm({
+@reduxForm({
   form: 'register',
   fields: ['email', 'password'],
   validate: validateEmailPass,
