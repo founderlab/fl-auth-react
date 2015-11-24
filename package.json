@@ -14,7 +14,7 @@
     "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib",
     "test": "eval $(cat test/.env) mocha test/**/*.tests.js"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.2",
     "redux-form": "^3.0.0"
