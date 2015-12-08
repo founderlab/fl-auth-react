@@ -23,10 +23,10 @@ export default class RegisterForm extends Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <Input type="text" placeholder="email"
+        <Input type="text" placeholder="email" name="email" autoComplete="on"
           bsStyle={validationState(email)} help={email.touched && email.error} {...email} />
 
-        <Input type="password" placeholder="password"
+        <Input type="password" placeholder="password" name="password" autoComplete="on"
           bsStyle={validationState(password)} help={password.touched && password.error} {...password} />
 
         <Button onClick={handleSubmit} bsStyle="primary">Register</Button>

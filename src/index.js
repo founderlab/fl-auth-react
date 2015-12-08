@@ -1,6 +1,7 @@
-import LoginForm from './login_form'
-import RegisterForm from './register_form'
-import ResetForm from './reset_form'
-import ResetRequestForm from './reset_request_form'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
+import ResetForm from './ResetForm'
+import ResetRequestForm from './ResetRequestForm'
+import EmailConfirm from './EmailConfirm'
 
-export default {LoginForm, RegisterForm, ResetForm, ResetRequestForm}
+export default {LoginForm, RegisterForm, ResetForm, ResetRequestForm, EmailConfirm}
