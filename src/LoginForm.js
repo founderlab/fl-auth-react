@@ -25,10 +25,10 @@ export default class LoginForm extends Component {
     return (
       <form className={form_class} onSubmit={handleSubmit}>
 
-        <Input type="text" placeholder="email"
+        <Input type="text" placeholder="email" autoComplete="on"
           bsStyle={validationState(email)} help={email.touched && email.error} {...email} />
 
-        <Input type="password" placeholder="password"
+        <Input type="password" placeholder="password" autoComplete="on"
           bsStyle={validationState(password)} help={password.touched && password.error} {...password} />
 
         <Button onClick={handleSubmit} bsStyle="primary">Login</Button>
