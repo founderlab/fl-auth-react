@@ -14,10 +14,11 @@ export default class RegisterForm extends Component {
     auth: PropTypes.object,
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    facebook: PropTypes.bool,
   }
 
   render() {
-    const {fields: {email, password}, handleSubmit, auth} = this.props
+    const {fields: {email, password}, handleSubmit, auth, facebook} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('register') : null
     const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
 
@@ -34,7 +35,7 @@ export default class RegisterForm extends Component {
         {auth.get('loading') && <small>loading...</small>}
         {error && <small>{error_msg}</small>}
 
-        <a href="/auth/facebook">Login with Facebook</a>
+        {facebook && (<a href="/auth/facebook">Login with Facebook</a>)}
       </form>
     )
   }
