@@ -19,7 +19,7 @@ export default class LoginForm extends Component {
   render() {
     const {fields: {email, password}, handleSubmit, auth} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('login') : null
-    const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
+    const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
     const form_class = (this.props.mode === 'horizontal' ? 'form-inline': '')
 
     return (
@@ -34,7 +34,7 @@ export default class LoginForm extends Component {
         <Button onClick={handleSubmit} bsStyle="primary">Login</Button>
 
         {auth.get('loading') && <small><br />loading...</small>}
-        {error && <small><br />Invalid email or password<span style={{display: 'none'}}>{error_msg}</span></small>}
+        {error && <small><br />Invalid email or password<span style={{display: 'none'}}>{errorMsg}</span></small>}
 
       </form>
     )

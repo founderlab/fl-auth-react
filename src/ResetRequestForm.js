@@ -20,7 +20,7 @@ export default class ResetRequestForm extends Component {
   render() {
     const {fields: {email}, handleSubmit, auth} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('reset') : null
-    const reset_email_sent = auth.get('reset_email_sent')
+    const resetEmailSent = auth.get('resetEmailSent')
 
     return (
       <form onSubmit={handleSubmit}>
@@ -32,7 +32,7 @@ export default class ResetRequestForm extends Component {
 
         {auth.get('loading') && <small><br />loading...</small>}
         {error && <p>An error occurred when trying to reset your password. Sorry! We'll get right on it.</p>}
-        {reset_email_sent && <p>A link to reset your password has been sent to {email.value}</p>}
+        {resetEmailSent && <p>A link to reset your password has been sent to {email.value}</p>}
 
       </form>
     )

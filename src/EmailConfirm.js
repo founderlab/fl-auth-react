@@ -9,17 +9,17 @@ import React, {PropTypes} from 'react'
 export default function EmailConfirm(props) {
   const {auth, confirmEmail, children, email, token} = props
   const error = auth.get('errors') ? auth.get('errors').get('email_confirm') : null
-  const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
+  const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
 
-  if (!error && !auth.get('loading') && !auth.get('email_confirmed')) {
+  if (!error && !auth.get('loading') && !auth.get('emailConfirmed')) {
     confirmEmail(email, token)
   }
 
   return (
     <div>
       {auth.get('loading') && <small>loading...</small>}
-      {error && <small>{error_msg}</small>}
-      {auth.get('email_confirmed') && children}
+      {error && <small>{errorMsg}</small>}
+      {auth.get('emailConfirmed') && children}
     </div>
   )
 }

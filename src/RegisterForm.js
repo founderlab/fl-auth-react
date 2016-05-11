@@ -20,7 +20,7 @@ export default class RegisterForm extends Component {
   render() {
     const {fields: {email, password}, handleSubmit, auth, facebook} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('register') : null
-    const error_msg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
+    const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
 
     return (
       <form onSubmit={handleSubmit}>
@@ -33,7 +33,7 @@ export default class RegisterForm extends Component {
         <Button onClick={handleSubmit} bsStyle="primary">Register</Button>
 
         {auth.get('loading') && <small>loading...</small>}
-        {error && <small>{error_msg}</small>}
+        {error && <small>{errorMsg}</small>}
 
         {facebook && (<a href="/auth/facebook">Login with Facebook</a>)}
       </form>

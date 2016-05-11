@@ -5,7 +5,7 @@ import {validationState, validateEmailPass} from '../src/validation'
 describe('validationState', () => {
 
   it('should return null when valid', () => {
-    expect(validationState({not_an_error: 'yup'})).toEqual(null)
+    expect(validationState({notAnError: 'yup'})).toEqual(null)
   })
 
   it('should return null when invalid and not touched', () => {
