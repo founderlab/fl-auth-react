@@ -8,7 +8,7 @@ import React, {PropTypes} from 'react'
 
 export default function EmailConfirm(props) {
   const {auth, confirmEmail, children, email, token} = props
-  const error = auth.get('errors') ? auth.get('errors').get('email_confirm') : null
+  const error = auth.get('errors') ? auth.get('errors').get('emailConfirm') : null
   const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
 
   if (!error && !auth.get('loading') && !auth.get('emailConfirmed')) {

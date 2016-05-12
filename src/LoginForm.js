@@ -20,10 +20,10 @@ export default class LoginForm extends Component {
     const {fields: {email, password}, handleSubmit, auth} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('login') : null
     const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
-    const form_class = (this.props.mode === 'horizontal' ? 'form-inline': '')
+    const formClass = (this.props.mode === 'horizontal' ? 'form-inline': '')
 
     return (
-      <form className={form_class} onSubmit={handleSubmit}>
+      <form className={formClass} onSubmit={handleSubmit}>
 
         <Input type="text" placeholder="email" autoComplete="on"
           bsStyle={validationState(email)} help={email.touched && email.error} {...email} />
