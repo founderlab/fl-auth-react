@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Input} from 'react-bootstrap'
-import {reduxForm} from 'redux-form'
-import {validationState, validateEmailPass} from './validation'
+import {Button} from 'react-bootstrap'
+import {reduxForm, Field} from 'redux-form'
+import {Input} from 'fl-react-utils'
+import {validateEmailPass} from './validation'
 
 //
 // ResetForm
@@ -11,41 +12,45 @@ import {validationState, validateEmailPass} from './validation'
 
 @reduxForm({
   form: 'reset',
-  fields: ['email', 'password', 'resetToken'],
   validate: validateEmailPass,
 })
 export default class ResetForm extends Component {
 
   static propTypes = {
-    auth: PropTypes.object.isRequired,
+    errorMsg: PropTypes.string,
     email: PropTypes.string.isRequired,
     resetToken: PropTypes.string.isRequired,
-    fields: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
   }
 
-  onSubmit = (data) => {
+  onSubmit = data => {
     data.email = this.props.email
     data.resetToken = this.props.resetToken
     this.props.onSubmit(data)
   }
 
   render() {
-    const {fields: {password}, handleSubmit, auth} = this.props
-    const error = auth.get('errors') ? auth.get('errors').get('register') : null
-    const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
+    const {loading, errorMsg, handleSubmit} = this.props
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <p>{this.props.email}</p>
-        <Input type="password" placeholder="password"
-          bsStyle={validationState(password)} help={password.touched && password.error} {...password} />
 
-        <Button onClick={handleSubmit(this.onSubmit)} bsStyle="primary">Set password</Button>
+        <Field
+          type="password"
+          name="password"
+          inputProps={{placeholder: 'Password (6 or more characters)'}}
+          component={Input}
+        />
 
-        {auth.get('loading') && <small>loading...</small>}
-        {error && <small>{errorMsg}</small>}
+        <Button onClick={handleSubmit} bsStyle="primary" type="submit">Login</Button>
+
+        {loading && <small>loading...</small>}
+        {errorMsg && <small>{errorMsg}</small>}
+
+        <Button onClick={handleSubmit(this.onSubmit)} bsStyle="primary" type="submit">Set password</Button>
+
       </form>
     )
   }

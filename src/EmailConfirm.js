@@ -7,27 +7,26 @@ import React, {PropTypes} from 'react'
 //
 
 export default function EmailConfirm(props) {
-  const {auth, confirmEmail, children, email, token} = props
-  const error = auth.get('errors') ? auth.get('errors').get('emailConfirm') : null
-  const errorMsg = process.env.NODE_ENV === 'production' ? 'Uh oh, something went wrong' : (error || '').toString()
-
-  if (!error && !auth.get('loading') && !auth.get('emailConfirmed')) {
+  const {emailConfirmed, loading, errorMsg, confirmEmail, children, email, token} = props
+  if (!errorMsg && !loading && emailConfirmed) {
     confirmEmail(email, token)
   }
 
   return (
     <div>
-      {auth.get('loading') && <small>loading...</small>}
-      {error && <small>{errorMsg}</small>}
-      {auth.get('emailConfirmed') && children}
+      {loading && <small>loading...</small>}
+      {errorMsg && <small>{errorMsg}</small>}
+      {emailConfirmed && children}
     </div>
   )
 }
 
 EmailConfirm.propTypes = {
-  auth: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
-  children: PropTypes.array,
+  errorMsg: PropTypes.string,
+  loading: PropTypes.bool,
+  emailConfirmed: PropTypes.bool,
+  children: PropTypes.node,
   confirmEmail: PropTypes.func.isRequired,
 }

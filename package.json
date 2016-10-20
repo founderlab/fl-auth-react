@@ -24,7 +24,8 @@
   "// wouldBePeerDependencies": {
     "react": "*",
     "react-bootstrap": "*",
-    "redux-form": "*"
+    "redux-form": "*",
+    "fl-react-utils": "^0.15.0"
   },
   "devDependencies": {
     "babel": "^5.6.14",
