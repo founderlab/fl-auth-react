@@ -6,9 +6,4 @@ export function validateEmailPass(data) {
   return errors
 }
 
-export function validationState(field) {
-  if (field.touched && field.error) return 'error'
-  return null
-}
-
-export default {validateEmailPass, validationState}
+export default {validateEmailPass}

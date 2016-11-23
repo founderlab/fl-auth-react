@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Input} from 'react-bootstrap'
-import {reduxForm} from 'redux-form'
-import {validationState} from './validation'
+import {Button} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import {reduxForm, Field, formValueSelector} from 'redux-form'
+import {Input} from 'fl-react-utils'
 
+// Connect this form to redux to get the current value of email
+const selector = formValueSelector('reset')
+@connect(state => ({email: selector(state, 'email')}))
 @reduxForm({
   form: 'reset',
-  fields: ['email'],
-  // todo: default value from email prop
 })
 export default class ResetRequestForm extends Component {
 
@@ -18,24 +20,26 @@ export default class ResetRequestForm extends Component {
   }
 
   render() {
-    const {fields: {email}, handleSubmit, auth} = this.props
+    const {email, handleSubmit, auth} = this.props
     const error = auth.get('errors') ? auth.get('errors').get('reset') : null
     const resetEmailSent = auth.get('resetEmailSent')
 
     return (
       <form onSubmit={handleSubmit}>
 
-        <Input type="text" placeholder="email"
-          bsStyle={validationState(email)} help={email.touched && email.error} {...email} />
-
-        <Button onClick={handleSubmit} bsStyle="primary">Reset your password</Button>
+        <Field
+          type="email"
+          name="email"
+          inputProps={{placeholder: 'Email'}}
+          component={Input}
+        />
+        <Button onClick={handleSubmit} bsStyle="primary" type="submit">Reset your password</Button>
 
         {auth.get('loading') && <small><br />loading...</small>}
         {error && <p>An error occurred when trying to reset your password. Sorry! We'll get right on it.</p>}
-        {resetEmailSent && <p>A link to reset your password has been sent to {email.value}</p>}
+        {resetEmailSent && <p>A link to reset your password has been sent to {email}</p>}
 
       </form>
     )
   }
-
 }

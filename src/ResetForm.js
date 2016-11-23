@@ -44,8 +44,6 @@ export default class ResetForm extends Component {
           component={Input}
         />
 
-        <Button onClick={handleSubmit} bsStyle="primary" type="submit">Login</Button>
-
         {loading && <small>loading...</small>}
         {errorMsg && <small>{errorMsg}</small>}
 
