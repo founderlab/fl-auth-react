@@ -15,7 +15,6 @@ export default class ResetRequestForm extends Component {
   static propTypes = {
     email: PropTypes.string,
     auth: PropTypes.object.isRequired,
-    fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
   }
 
