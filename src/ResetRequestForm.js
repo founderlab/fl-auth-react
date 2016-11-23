@@ -32,7 +32,7 @@ export default class ResetRequestForm extends Component {
           inputProps={{placeholder: 'Email'}}
           component={Input}
         />
-        <Button onClick={handleSubmit} bsStyle="primary" type="submit">Reset your password</Button>
+        <p><Button onClick={handleSubmit} bsStyle="primary" type="submit">Reset your password</Button></p>
 
         {auth.get('loading') && <small><br />loading...</small>}
         {error && <p>An error occurred when trying to reset your password. Sorry! We'll get right on it.</p>}
