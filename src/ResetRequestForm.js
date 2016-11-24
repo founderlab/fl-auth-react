@@ -14,14 +14,13 @@ export default class ResetRequestForm extends Component {
 
   static propTypes = {
     email: PropTypes.string,
-    auth: PropTypes.object.isRequired,
+    errorMsg: PropTypes.string,
+    resetEmailSent: PropTypes.bool,
     handleSubmit: PropTypes.func.isRequired,
   }
 
   render() {
-    const {email, handleSubmit, auth} = this.props
-    const error = auth.get('errors') ? auth.get('errors').get('reset') : null
-    const resetEmailSent = auth.get('resetEmailSent')
+    const {email, handleSubmit, loading, resetEmailSent} = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -34,8 +33,7 @@ export default class ResetRequestForm extends Component {
         />
         <p><Button onClick={handleSubmit} bsStyle="primary" type="submit">Reset your password</Button></p>
 
-        {auth.get('loading') && <small><br />loading...</small>}
-        {error && <p>An error occurred when trying to reset your password. Sorry! We'll get right on it.</p>}
+        {loading && <small><br />loading...</small>}
         {resetEmailSent && <p>A link to reset your password has been sent to {email}</p>}
 
       </form>
