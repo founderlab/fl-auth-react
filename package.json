@@ -19,12 +19,9 @@
     "test": "eval $(cat test/.env) mocha test/**/*.tests.js"
   },
   "dependencies": {
-    "babel-runtime": "^6.6.1"
-  },
-  "// wouldBePeerDependencies": {
-    "react": "*",
-    "react-bootstrap": "*",
-    "redux-form": "*",
+    "react": ">=15.3.1",
+    "react-bootstrap": ">=0.30.3",
+    "redux-form": ">=6.0.2",
     "fl-react-utils": "^0.15.0"
   },
   "devDependencies": {
