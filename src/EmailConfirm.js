@@ -1,32 +1,38 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 
 //
 // EmailConfirm
 // This page should be reached from a link in an email confirmation email
-// That link should have email / token as query params, which will be in props.query
+// That link should have email / token as query params, which should be given to this component
 //
+export default class EmailConfirm extends Component {
 
-export default function EmailConfirm(props) {
-  const {emailConfirmed, loading, errorMsg, confirmEmail, children, email, token} = props
-  if (!errorMsg && !loading && emailConfirmed) {
-    confirmEmail(email, token)
+  static propTypes = {
+    email: PropTypes.string.isRequired,
+    token: PropTypes.string.isRequired,
+    errorMsg: PropTypes.string,
+    loading: PropTypes.bool,
+    emailConfirmed: PropTypes.bool,
+    children: PropTypes.node,
+    confirmEmail: PropTypes.func.isRequired,
   }
 
-  return (
-    <div>
-      {loading && <small>loading...</small>}
-      {errorMsg && <small>{errorMsg}</small>}
-      {emailConfirmed && children}
-    </div>
-  )
-}
+  componentWillReceiveProps(props) {
+    const {emailConfirmed, loading, errorMsg, confirmEmail, children, email, token} = props
+    if (!errorMsg && !loading && emailConfirmed) {
+      confirmEmail(email, token)
+    }
+  }
 
-EmailConfirm.propTypes = {
-  email: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
-  errorMsg: PropTypes.string,
-  loading: PropTypes.bool,
-  emailConfirmed: PropTypes.bool,
-  children: PropTypes.node,
-  confirmEmail: PropTypes.func.isRequired,
+  render() {
+    const {emailConfirmed, loading, errorMsg, confirmEmail, children, email, token} = this.props
+
+    return (
+      <div>
+        {loading && <small>loading...</small>}
+        {errorMsg && <small>{errorMsg}</small>}
+        {emailConfirmed && children}
+      </div>
+    )
+  }
 }
