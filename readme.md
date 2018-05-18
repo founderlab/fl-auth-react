@@ -1,3 +1,13 @@
+## This package has moved to the [Frameworkstein repository](https://github.com/founderlab/frameworkstein/tree/master/packages/fl-auth-react)
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 Ready made forms for use with fl-auth-redux and fl-auth-server
 ==============================================================
 
